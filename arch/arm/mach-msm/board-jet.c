@@ -2651,10 +2651,10 @@ static void headset_init(void)
 		}
 	} else {
 	
-		for (i = 0; i < ARRAY_SIZE(headset_rx_xc); i++) {
+		for (i = 0; i < (sizeof(headset_rx_xc) / sizeof(int)); i++) {
 			rc = pm8xxx_gpio_config(headset_rx_xc[i].gpio,
 						&headset_rx_xc[i].config);
-			if (rc)
+			if (rc && (i < (sizeof(headset_rx) / sizeof(int))))
 				pr_info("[HS_BOARD] %s: Config ERROR: GPIO=%u, rc=%d\n",
 					__func__, headset_rx[i].gpio, rc);
 		}
